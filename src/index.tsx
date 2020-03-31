@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 ReactDOM.render(
   <Provider store={store}>
       <React.StrictMode>
-    <App title="Typescript TO-TO App"/>
+    <App title="Tasks"/>
   </React.StrictMode>
   </Provider>,
   document.getElementById('root')

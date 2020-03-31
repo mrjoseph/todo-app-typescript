@@ -1,33 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment';
-import { useDispatch, useSelector } from 'react-redux';
-import { Todo, IState, IAppProps } from './types/types';
+import { ADD_TODO_ITEM } from './redux/actions/actions'
+import { useDispatch } from 'react-redux';
+import { IAppProps } from './types/types';
 import { uid } from './utils/utils'
 import './App.css';
-
-
-export const TodoComponent = (): JSX.Element => {
-  const { reducer: { todos } } = useSelector((state: IState) => state)
-  return (
-    <ul>
-      {todos.map(({ item, id }: Todo) => {
-    return (
-      <li key={id}>{item}</li>
-    )
-  })}
-    </ul>
-  )
-};
+import { TodoComponent } from './components/TodoComponent';
 
 const App = (props:IAppProps): JSX.Element => {
   const { title } = props;
   const [todo, setValue] = useState('');
   const dispatch = useDispatch();
 
-  const handleSubmit = (e: React.FormEvent): void => {
+  const handleSubmit = (e:any): void => {
   e.preventDefault();   
+
   dispatch({
-    type: 'ADD_TODO_ITEM',
+    type: ADD_TODO_ITEM,
     payload: {
       id: uid(),
       item: todo,
@@ -35,26 +24,28 @@ const App = (props:IAppProps): JSX.Element => {
       status: 'incomplete'
     }
   })
+  setValue('');
 }
 
 const handleChange = (e: React.FormEvent): void => {
   const target = e.target as HTMLTextAreaElement
   e.preventDefault();
-  setValue((target.value))
- 
+  setValue(target.value)
 }  
   return(
     <div className="container">
       <h1>{title}</h1>
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form" data-testid="todo-form" onSubmit={(e) => handleSubmit(e)} >
       <div className="form-group">
         <input
         value={todo}
+        autoComplete="off"
         type="text"
         className="form-control"
         id="addTodo"
         aria-describedby="addTodo"
         onChange={handleChange}
+        data-testid="todo-input"
         />
       </div>
     </form>
