@@ -19,7 +19,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.7",
     "jest-enzyme": "^7.1.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
